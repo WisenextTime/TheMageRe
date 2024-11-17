@@ -5,7 +5,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Scripts\Bullets\" />
-    <Folder Include="Scripts\Enemies\" />
     <Folder Include="Scripts\Items\" />
   </ItemGroup>
 </Project>

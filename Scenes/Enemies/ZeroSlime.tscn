@@ -1,20 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://cyg1okuymo7t8"]
+[gd_scene load_steps=16 format=3 uid="uid://cyg1okuymo7t8"]
 
 [ext_resource type="PackedScene" uid="uid://bw8583rwjyidg" path="res://Scenes/Enemy.tscn" id="1_t20pi"]
+[ext_resource type="Script" path="res://Scripts/Enemies/ZeroSlime.cs" id="2_1uy3x"]
 [ext_resource type="Texture2D" uid="uid://lpnrgs1b1trm" path="res://Assets/Character/SlimeZero.png" id="2_du30r"]
 [ext_resource type="PackedScene" uid="uid://cvc5b2x6smqis" path="res://Scenes/Weapons/ZeroSlimeWeapon.tscn" id="3_yl3il"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_crc5w"]
 resource_local_to_scene = true
 radius = 6.0
-
-[sub_resource type="Animation" id="Animation_hm4bd"]
-resource_name = "Idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_58b1q"]
-resource_name = "Walk"
-loop_mode = 1
 
 [sub_resource type="Animation" id="Animation_wyolj"]
 resource_name = "Attack"
@@ -30,6 +23,10 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+
+[sub_resource type="Animation" id="Animation_hm4bd"]
+resource_name = "Idle"
+loop_mode = 1
 
 [sub_resource type="Animation" id="Animation_2mdxk"]
 length = 0.001
@@ -58,6 +55,10 @@ tracks/1/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_58b1q"]
+resource_name = "Walk"
+loop_mode = 1
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p2wid"]
 _data = {
 "Attack": SubResource("Animation_wyolj"),
@@ -67,7 +68,6 @@ _data = {
 }
 
 [sub_resource type="Animation" id="Animation_2y01f"]
-length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -93,6 +93,10 @@ tracks/1/keys = {
 "values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_6difv"]
+length = 0.1
+loop_mode = 1
+
 [sub_resource type="Animation" id="Animation_r24k2"]
 length = 0.5
 tracks/0/type = "value"
@@ -102,30 +106,38 @@ tracks/0/path = NodePath("Image:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [1]
+"values": [1, 2]
 }
-
-[sub_resource type="Animation" id="Animation_6difv"]
-length = 0.1
-loop_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ei25p"]
 _data = {
 "Attack": SubResource("Animation_2y01f"),
 "Idle": SubResource("Animation_6difv"),
-"Move": SubResource("Animation_r24k2")
+"Walk": SubResource("Animation_r24k2")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4k71e"]
 resource_local_to_scene = true
-radius = 160.0
+radius = 320.0
 
 [node name="Enemy" node_paths=PackedStringArray("MainWeapon") instance=ExtResource("1_t20pi")]
-collision_mask = 3
+script = ExtResource("2_1uy3x")
+MaxFindTargetDistance = 320.0
+FindTargetDistance = 80.0
+AttackRange = 32.0
+Speed = 10.0
+Coin = 1
 MainWeapon = NodePath("ZeroSlimeWeapon")
+MaxHealth = 100
+MaxMana = 0
+Team = 1
+CollisionWall = true
+CollisionLand = false
+CollisionWater = false
+CollisionAir = false
 
 [node name="Shape" parent="." index="0"]
 shape = SubResource("CircleShape2D_crc5w")

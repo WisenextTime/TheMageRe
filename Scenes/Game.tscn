@@ -39,19 +39,22 @@ y_sort_enabled = true
 position = Vector2(680, 440)
 
 [node name="Enemy" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1187, 519)
+position = Vector2(1071, 499)
 
 [node name="Enemy2" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1059, 556)
+position = Vector2(1162, 499)
 
 [node name="Enemy3" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1050, 468)
+position = Vector2(1205, 501)
 
 [node name="Enemy4" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1024, 543)
+position = Vector2(1158, 535)
 
 [node name="Enemy5" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1034, 491)
+position = Vector2(1201, 538)
+
+[node name="Enemy6" parent="GameObjects" instance=ExtResource("5_aj7r5")]
+position = Vector2(1072, 544)
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("6_74kh0")

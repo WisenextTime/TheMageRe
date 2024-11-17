@@ -5,4 +5,6 @@
 
 [node name="ZeroSlimeWeapon" instance=ExtResource("1_kyg4f")]
 script = ExtResource("2_etmbi")
+DelayTime = 0.8
+WarmupTime = 0.2
 DataSource = "ZeroSlimeWeapon"

@@ -32,7 +32,7 @@ public class Global
 
 	public static readonly string[] Element =
 	[
-		"Physical","Air","Fire","Water","Earth","Aether"
+		"Zero","Physical","Air","Fire","Water","Earth","Aether"
 	];
 	
 	public struct BaseAttributes
@@ -68,6 +68,7 @@ public class Global
 	public struct DamageDate
 	{
 		public Dictionary<string, float> Elements = new();
+		public bool Crit = false;
 
 		public DamageDate() { }
 	}

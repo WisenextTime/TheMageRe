@@ -179,6 +179,8 @@ Magic8={
 2d_physics/layer_3="Ground"
 2d_physics/layer_4="Air"
 2d_physics/layer_5="Attackable"
+2d_physics/layer_6="EnemiesLand"
+2d_physics/layer_7="EnemiesAir"
 
 [rendering]
 

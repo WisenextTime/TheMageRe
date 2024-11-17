@@ -5,8 +5,8 @@ namespace TheMage.Scripts;
 public partial class Game : Node2D
 {
 	//Attributes
-	public int PlayerLevel = 1;
-	
+	//public int PlayerLevel = 1;
+	public int Coins = 0;
 	//Buffs
 	
 	public Player Player;

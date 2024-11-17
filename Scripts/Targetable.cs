@@ -27,19 +27,25 @@ public abstract partial class Targetable : GameObject
 	public List<ElementData> Elements = [];
 	protected void TargetableReady()
 	{
-		CollisionLayer |= 0b_0000_1;
+		//CollisionLayer |= 0b_0000_1;
 	}
 
-	public void TakeDamage(DamageDate data)
+	protected (int,bool) BaseTakeDamage(DamageDate data)
 	{
 		var damage = (from element in Element
-			let source = Elements.Find(x => x.Element == element)
-			let defense = source.Def * (1 + source.DefMul)
-			let attack = data.Elements[element] 
-			select attack * defense / (defense + 600)
-			into finalDamage 
-			select (int)finalDamage).Sum();
-		Health -= damage;
+        			let source = Elements.Find(x => x.Element == element)
+        			let defense = source.Def * (1 + source.DefMul)
+        			let attack = data.Elements[element] 
+        			select attack * defense / (defense + 600)
+        			into finalDamage 
+        			select (int)finalDamage).Sum();
+        		Health -= damage;
+		        return (damage,data.Crit);
+	}
+
+	public virtual void TakeDamage(DamageDate data)
+	{
+		BaseTakeDamage(data);
 	}
 
 	public virtual float GetDir()

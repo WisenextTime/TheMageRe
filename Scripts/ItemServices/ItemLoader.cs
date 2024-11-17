@@ -20,7 +20,7 @@ public static class ItemLoader
 			newItem.Description = (string)data.GetValue("Info", "Description", "");
 			newItem.Equippable = (bool)data.GetValue("Info", "Equippable", false);
 			newItem.Hidden = (bool)data.GetValue("Info", "Hidden", false);
-			if (!newItem.Equippable || !data.HasSection("EquipmentData")) return newItem;
+			if (!newItem.Equippable) return newItem;
 			if (data.HasSection("BaseAttributes"))
 				newItem.BaseAttributes = new BaseAttributes
 				{
@@ -37,7 +37,7 @@ public static class ItemLoader
 				};
 			foreach (var element in Element)
 			{
-				if (!data.HasSection("ElementData")) continue;
+				if (!data.HasSection(element)) continue;
 				newItem.Elements.Add(new ElementData
 				{
 					Element = element,

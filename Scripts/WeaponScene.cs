@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TheMage.Scripts.ItemServices;
 
 namespace TheMage.Scripts;
@@ -7,6 +8,7 @@ public partial class WeaponScene : Node
 {
 	[Export] public PackedScene BulletScene;
 	[Export] public float DelayTime = 1f;
+	[Export] public float WarmupTime;
 	public Weapon Data;
 	public Item ItemSource => GetGlobal().Items[Data.ItemSource];
 	
@@ -27,13 +29,14 @@ public partial class WeaponScene : Node
 		BaseReady();
 	}
 
-	public virtual void Attack(Targetable source, Targetable target = null)
+	public virtual async Task Attack(Targetable source, Targetable target = null)
 	{
 		if (!CanAttack) return;
 		CanAttack = false;
 		_delayTimer.WaitTime =
 			float.Max(DelayTime * 1f - ItemSource.BaseAttributes.AtkSpd + source.Attributes.AtkSpd, 0.0001f);
 		_delayTimer.Start();
+		await ToSignal(GetTree().CreateTimer(WarmupTime), Timer.SignalName.Timeout);
 		var bullet = _bullet;
 		bullet.Attacker = source;
 		bullet.Source = Data;

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://2gqn71a0huip"]
+
+[ext_resource type="PackedScene" uid="uid://b6at4g5peejrx" path="res://Scenes/Weapon.tscn" id="1_kkxc6"]
+[ext_resource type="PackedScene" uid="uid://bmtvs17ejvgm6" path="res://Scenes/Bullets/SmallElementBall.tscn" id="2_nic74"]
+
+[node name="BasicStaff" instance=ExtResource("1_kkxc6")]
+BulletScene = ExtResource("2_nic74")
+DelayTime = 0.5
+DataSource = "BasicStaff"

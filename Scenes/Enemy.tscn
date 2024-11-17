@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://bw8583rwjyidg"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_k6xrs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_myuda"]
+resource_local_to_scene = true
+radius = 4.47214
+
+[sub_resource type="Animation" id="Animation_hm4bd"]
+resource_name = "Idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_58b1q"]
+resource_name = "Walk"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_wyolj"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2mdxk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Image:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p2wid"]
+_data = {
+"Attack": SubResource("Animation_wyolj"),
+"Idle": SubResource("Animation_hm4bd"),
+"RESET": SubResource("Animation_2mdxk"),
+"Walk": SubResource("Animation_58b1q")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8lasy"]
+resource_local_to_scene = true
+radius = 320.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 19
+script = ExtResource("1_k6xrs")
+MaxHealth = 100
+Team = 1
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_myuda")
+
+[node name="Image" type="Sprite2D" parent="."]
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p2wid")
+}
+autoplay = "Idle"
+
+[node name="Agent" type="NavigationAgent2D" parent="."]
+
+[node name="StartPosition" type="Marker2D" parent="."]
+
+[node name="FindTarget" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="Shape" type="CollisionShape2D" parent="FindTarget"]
+visible = false
+shape = SubResource("CircleShape2D_8lasy")
+debug_color = Color(0, 0.966667, 1, 0.380392)

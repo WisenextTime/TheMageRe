@@ -1,0 +1,11 @@
+<Project Sdk="Godot.NET.Sdk/4.3.0">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Bullets\" />
+    <Folder Include="Scripts\Enemies\" />
+    <Folder Include="Scripts\Items\" />
+  </ItemGroup>
+</Project>

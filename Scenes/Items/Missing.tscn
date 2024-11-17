@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmhkquuj7v7qk"]
+
+[ext_resource type="Script" path="res://Scripts/ItemScene.cs" id="1_2341v"]
+
+[node name="Missing" type="Node"]
+script = ExtResource("1_2341v")
+DataSource = "res://Assets/Data/Items/Missing.ini"

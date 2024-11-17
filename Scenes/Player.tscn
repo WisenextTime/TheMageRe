@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4h7dj1sfbgtt"]
+
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_nssmy"]
+[ext_resource type="Texture2D" uid="uid://5sd6rq2f641e" path="res://Assets/Character/LittleRed.png" id="2_swd2w"]
+[ext_resource type="PackedScene" uid="uid://2gqn71a0huip" path="res://Scenes/Weapons/BasicStaff.tscn" id="3_se8g3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_15is3"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_37cja"]
+resource_name = "Idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5is5g"]
+resource_name = "Move"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_c66qc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qgg50"]
+resource_name = "Run"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_spato"]
+_data = {
+"Idle": SubResource("Animation_37cja"),
+"Move": SubResource("Animation_5is5g"),
+"RESET": SubResource("Animation_c66qc"),
+"Run": SubResource("Animation_qgg50")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("MainWeapon")]
+collision_layer = 16
+collision_mask = 3
+safe_margin = 0.1
+script = ExtResource("1_nssmy")
+MainWeapon = NodePath("BasicStaff")
+MaxHealth = 100
+MaxMana = 100
+CollisionWater = true
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_15is3")
+
+[node name="Image" type="Sprite2D" parent="."]
+texture = ExtResource("2_swd2w")
+offset = Vector2(0, -12)
+hframes = 4
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_spato")
+}
+autoplay = "Idle"
+
+[node name="BasicStaff" parent="." instance=ExtResource("3_se8g3")]

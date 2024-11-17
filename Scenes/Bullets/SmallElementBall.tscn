@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmtvs17ejvgm6"]
+
+[ext_resource type="PackedScene" uid="uid://h1gk22hg7lo5" path="res://Scenes/Bullet.tscn" id="1_yq8ku"]
+[ext_resource type="Texture2D" uid="uid://dyjj3vx13v7d0" path="res://Assets/Textures/Bullets/SmallElementBall.png" id="2_bv18w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p67ef"]
+resource_local_to_scene = true
+radius = 0.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a1u43"]
+resource_local_to_scene = true
+radius = 320.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rgtj7"]
+resource_local_to_scene = true
+radius = 2.0
+
+[node name="SmallElementBall" instance=ExtResource("1_yq8ku")]
+
+[node name="Shape" parent="ExplodeRange" index="0"]
+shape = SubResource("CircleShape2D_p67ef")
+
+[node name="Shape" parent="FindRange" index="0"]
+shape = SubResource("CircleShape2D_a1u43")
+
+[node name="Shape" parent="." index="2"]
+shape = SubResource("CircleShape2D_rgtj7")
+
+[node name="Image" parent="." index="4"]
+texture = ExtResource("2_bv18w")

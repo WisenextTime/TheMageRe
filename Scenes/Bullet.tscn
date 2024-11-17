@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://h1gk22hg7lo5"]
+
+[ext_resource type="Script" path="res://Scripts/Bullet.cs" id="1_sh87q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g6hj0"]
+resource_local_to_scene = true
+radius = 0.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vt5i7"]
+resource_local_to_scene = true
+radius = 320.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20wjv"]
+resource_local_to_scene = true
+radius = 2.0
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 0
+collision_mask = 17
+script = ExtResource("1_sh87q")
+
+[node name="ExplodeRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 17
+
+[node name="Shape" type="CollisionShape2D" parent="ExplodeRange"]
+visible = false
+shape = SubResource("CircleShape2D_g6hj0")
+debug_color = Color(1, 0.0135527, 0.00705866, 0.42)
+
+[node name="FindRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 17
+
+[node name="Shape" type="CollisionShape2D" parent="FindRange"]
+visible = false
+shape = SubResource("CircleShape2D_vt5i7")
+debug_color = Color(0, 0.966667, 1, 0.380392)
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_20wjv")
+debug_color = Color(0.63741, 0.526163, 9.62615e-07, 0.42)
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="Image" type="Sprite2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="Hit"]
+[connection signal="timeout" from="Timer" to="." method="LifeTimeEnd"]

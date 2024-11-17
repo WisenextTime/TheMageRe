@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6at4g5peejrx"]
+
+[ext_resource type="Script" path="res://Scripts/WeaponScene.cs" id="1_ajmis"]
+
+[node name="Weapon" type="Node"]
+script = ExtResource("1_ajmis")
+
+[node name="Delay" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Delay" to="." method="DelayReady"]

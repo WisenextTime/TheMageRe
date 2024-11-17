@@ -1,0 +1,149 @@
+[gd_scene load_steps=15 format=3 uid="uid://cyg1okuymo7t8"]
+
+[ext_resource type="PackedScene" uid="uid://bw8583rwjyidg" path="res://Scenes/Enemy.tscn" id="1_t20pi"]
+[ext_resource type="Texture2D" uid="uid://lpnrgs1b1trm" path="res://Assets/Character/SlimeZero.png" id="2_du30r"]
+[ext_resource type="PackedScene" uid="uid://cvc5b2x6smqis" path="res://Scenes/Weapons/ZeroSlimeWeapon.tscn" id="3_yl3il"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_crc5w"]
+resource_local_to_scene = true
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_hm4bd"]
+resource_name = "Idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_58b1q"]
+resource_name = "Walk"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_wyolj"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2mdxk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Image:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p2wid"]
+_data = {
+"Attack": SubResource("Animation_wyolj"),
+"Idle": SubResource("Animation_hm4bd"),
+"RESET": SubResource("Animation_2mdxk"),
+"Walk": SubResource("Animation_58b1q")
+}
+
+[sub_resource type="Animation" id="Animation_2y01f"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Image:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r24k2"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Image:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_6difv"]
+length = 0.1
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ei25p"]
+_data = {
+"Attack": SubResource("Animation_2y01f"),
+"Idle": SubResource("Animation_6difv"),
+"Move": SubResource("Animation_r24k2")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4k71e"]
+resource_local_to_scene = true
+radius = 160.0
+
+[node name="Enemy" node_paths=PackedStringArray("MainWeapon") instance=ExtResource("1_t20pi")]
+collision_mask = 3
+MainWeapon = NodePath("ZeroSlimeWeapon")
+
+[node name="Shape" parent="." index="0"]
+shape = SubResource("CircleShape2D_crc5w")
+
+[node name="Image" parent="." index="1"]
+texture = ExtResource("2_du30r")
+offset = Vector2(0, -4)
+hframes = 3
+frame = 1
+
+[node name="Animation" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_p2wid"),
+"Custom": SubResource("AnimationLibrary_ei25p")
+}
+autoplay = "Custom/Idle"
+
+[node name="Shape" parent="FindTarget" index="0"]
+shape = SubResource("CircleShape2D_4k71e")
+
+[node name="ZeroSlimeWeapon" parent="." index="6" instance=ExtResource("3_yl3il")]

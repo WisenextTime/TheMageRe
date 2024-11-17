@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvc5b2x6smqis"]
+
+[ext_resource type="PackedScene" uid="uid://b6at4g5peejrx" path="res://Scenes/Weapon.tscn" id="1_kyg4f"]
+[ext_resource type="Script" path="res://Scripts/Weapons/ZeroSlimeWeapon.cs" id="2_etmbi"]
+
+[node name="ZeroSlimeWeapon" instance=ExtResource("1_kyg4f")]
+script = ExtResource("2_etmbi")
+DataSource = "ZeroSlimeWeapon"

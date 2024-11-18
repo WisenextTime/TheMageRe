@@ -109,3 +109,8 @@ libraries = {
 autoplay = "Idle"
 
 [node name="BasicStaff" parent="." instance=ExtResource("3_se8g3")]
+
+[node name="ItemFinder" type="RayCast2D" parent="."]
+target_position = Vector2(25, 0)
+collision_mask = 128
+collide_with_areas = true

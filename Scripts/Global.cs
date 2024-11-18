@@ -10,16 +10,30 @@ public class Global
 	public Dictionary<string,Weapon> Weapons = [];
 	private static Global _global;
 	public Item MissingItem => Items["Missing"];
-
 	public static Global GetGlobal() => _global??= new Global();
 
+	public InputDevice GetInputDevice()
+	{
+		if (OS.GetName() == "Android")
+		{
+			return InputDevice.Touch;
+		}
+		return Input.GetConnectedJoypads().Count == 0 ? InputDevice.KeyboardAndMouse : InputDevice.Touch;
+	}
+	
+	public enum InputDevice
+	{
+		KeyboardAndMouse,
+		Joystick,
+		Touch,
+	}
+	
 	public Global()
 	{
 		foreach (var file in DirAccess.GetFilesAt("res://Assets/Data/Items/"))
 			Items.Add(file.GetBaseName(), ItemLoader.LoadItemFromFile($"res://Assets/Data/Items/{file}"));
 		foreach (var file in DirAccess.GetFilesAt("res://Assets/Data/Weapons/"))
 			Weapons.Add(file.GetBaseName(), WeaponLoader.LoadWeaponFromFile($"res://Assets/Data/Weapons/{file}"));
-		
 	}
 
 	public static readonly string[] EquipmentDataMisc = 

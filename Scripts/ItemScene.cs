@@ -26,7 +26,7 @@ public partial class ItemScene : Node
 	public virtual void OnPerFrame(Player player) { }
 }
 
-public class Item
+public partial class Item
 {
 	public string Name = null;
 	public string Description = string.Empty;

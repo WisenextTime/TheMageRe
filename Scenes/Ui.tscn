@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://x11b05xkiwkp"]
+
+[ext_resource type="Script" path="res://Scripts/Ui.cs" id="1_byauf"]
+[ext_resource type="Texture2D" uid="uid://dijk74r1yk1yl" path="res://Assets/Textures/UI/TouchJoyBack.png" id="2_jkjfe"]
+[ext_resource type="Script" path="res://Scripts/GodotScripts/TouchJoy.gd" id="3_0rf2k"]
+[ext_resource type="Texture2D" uid="uid://dw2klan4m4ltu" path="res://Assets/Textures/UI/TouchJoyCenter.png" id="3_e2m5x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adn13"]
+size = Vector2(300, 300)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_byauf")
+
+[node name="TouchDeviceControl" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JoyBack" type="TextureRect" parent="TouchDeviceControl"]
+modulate = Color(1, 1, 1, 0.505882)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.8
+anchor_right = 0.15
+anchor_bottom = 0.8
+offset_left = -90.0
+offset_top = -90.0
+offset_right = 90.0
+offset_bottom = 90.0
+grow_vertical = 0
+texture = ExtResource("2_jkjfe")
+expand_mode = 1
+script = ExtResource("3_0rf2k")
+
+[node name="Button" type="TouchScreenButton" parent="TouchDeviceControl/JoyBack"]
+position = Vector2(90, 90)
+shape = SubResource("RectangleShape2D_adn13")
+shape_centered = false
+
+[node name="Center" type="TextureRect" parent="TouchDeviceControl/JoyBack"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -90.0
+offset_right = 90.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_e2m5x")
+
+[connection signal="pressed" from="TouchDeviceControl/JoyBack/Button" to="TouchDeviceControl/JoyBack" method="_on_button_pressed"]
+[connection signal="released" from="TouchDeviceControl/JoyBack/Button" to="TouchDeviceControl/JoyBack" method="_on_button_released"]

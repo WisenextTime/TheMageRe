@@ -13,6 +13,9 @@ public partial class Player : Targetable
 	//Nodes
 	private Sprite2D _image;
 	private AnimationPlayer _animation;
+	private RayCast2D _itemFinder;
+
+	public GameObject NowItem;
 	
 	public override void _Ready()
 	{
@@ -20,6 +23,7 @@ public partial class Player : Targetable
 		TargetableReady();
 		_image = GetNode<Sprite2D>("Image");
 		_animation = GetNode<AnimationPlayer>("Animation");
+		_itemFinder = GetNode<RayCast2D>("ItemFinder");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -27,7 +31,20 @@ public partial class Player : Targetable
 		Move();
 		if (Input.IsActionPressed("Attack") && !Input.IsActionPressed("MagicLeft") &&
 		    !Input.IsActionPressed("MagicRight"))
-			MainWeapon.Attack(this);
+			_ = MainWeapon.Attack(this);
+		if (_itemFinder.GetCollider() is GameObject newItem)
+		{
+			if (newItem == NowItem) return;
+			NowItem.OnUnselect();
+			NowItem = newItem;
+			newItem.OnSelect();
+		}
+		else
+		{
+			if (NowItem == null) return;
+			NowItem.OnUnselect();
+			NowItem = null;
+		}
 	}
 
 	private void Move()
@@ -35,6 +52,7 @@ public partial class Player : Targetable
 		var moveDir = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown").Normalized();
 		if (moveDir != Vector2.Zero)
 		{
+			_itemFinder.LookAt(moveDir);
 			MoveDirection = moveDir;
 			_image.FlipH = moveDir.X switch
 			{

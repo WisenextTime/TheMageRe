@@ -5,7 +5,7 @@
 [ext_resource type="TileSet" uid="uid://dtycoyth0dvww" path="res://Assets/Misc/Item.tres" id="2_o8wsk"]
 [ext_resource type="PackedScene" uid="uid://d4h7dj1sfbgtt" path="res://Scenes/Player.tscn" id="3_r7d4j"]
 [ext_resource type="PackedScene" uid="uid://cyg1okuymo7t8" path="res://Scenes/Enemies/ZeroSlime.tscn" id="5_aj7r5"]
-[ext_resource type="Script" path="res://Scripts/Ui.cs" id="6_74kh0"]
+[ext_resource type="PackedScene" uid="uid://x11b05xkiwkp" path="res://Scenes/Ui.tscn" id="6_lcuct"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -56,5 +56,4 @@ position = Vector2(1201, 538)
 [node name="Enemy6" parent="GameObjects" instance=ExtResource("5_aj7r5")]
 position = Vector2(1072, 544)
 
-[node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("6_74kh0")
+[node name="UI" parent="." instance=ExtResource("6_lcuct")]

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 namespace TheMage.Scripts;
 
@@ -7,25 +8,33 @@ public partial class Enemy : Targetable
 	protected Area2D _findTarget;
 	protected AnimationPlayer _animation;
 	protected Sprite2D _image;
+	protected TextureProgressBar _hpBar;
+	
+	protected Label _damage;
 	
 	protected Vector2 _startPosition;
 	
 	public bool alert;
-	[Export] public float MaxFindTargetDistance = 160f;
+	[Export] public float MaxFindTargetDistance = 320f;
 	[Export] public float FindTargetDistance = 80f;
 	[Export] public float AttackRange = 10f;
-	[Export] public float speed = 10f;
+	[Export] public float Speed = 10f;
+	[Export] public int Coin = 1;
 	
 	public Targetable target;
 
 	public void EnemyReady()
 	{
+		TargetableReady();
 		_agent = GetNode<NavigationAgent2D>("Agent");
 		_findTarget = GetNode<Area2D>("FindTarget");
 		_startPosition = GlobalPosition;
 		_animation = GetNode<AnimationPlayer>("Animation");
 		_image = GetNode<Sprite2D>("Image");
-		Attributes.MovSpd = speed;
+		_hpBar = GetNode<TextureProgressBar>("HpBar");
+		_damage = GetNode<Label>("Damage");
+		Attributes.MovSpd = Speed;
+		Attributes.MaxHp = (float)(_hpBar.Value = _hpBar.MaxValue = Health = MaxHealth);
 	}
 
 	public override void _Ready()
@@ -36,22 +45,28 @@ public partial class Enemy : Targetable
 	public override void _PhysicsProcess(double delta)
 	{
 		BaseMovement();
+		_hpBar.Value = Health;
 	}
 
 	protected void BaseMovement()
 	{
+		target ??= FindTarget();
 		if (target!=null && target.GlobalPosition.DistanceTo(GlobalPosition) > (alert ? MaxFindTargetDistance : FindTargetDistance))
 		{
 			target = null;
 			alert = false;
 		}
-		target ??= FindTarget();
-		if (target == null)
+		else
+		{
+			alert = target!=null;
+		}
+		if (!alert)
 		{
 			if (_startPosition.DistanceTo(GlobalPosition) <= 16)
 			{
 				_animation.Play(_animation.HasAnimation("Custom/Idle") ? "Custom/Idle" : "Idle");
 				Velocity = Vector2.Zero;
+				Health = int.Min(MaxHealth, Health + (int)Math.Ceiling(MaxHealth * 0.001));
 			}
 			else
 			{
@@ -64,6 +79,7 @@ public partial class Enemy : Targetable
 			if (target.GlobalPosition.DistanceTo(GlobalPosition) < AttackRange)
 			{
 				_animation.Play(_animation.HasAnimation("Custom/Attack") ? "Custom/Attack" : "Attack");
+				Velocity = Vector2.Zero;
 				Attack(target);
 			}
 			else
@@ -90,18 +106,45 @@ public partial class Enemy : Targetable
 
 	protected virtual void Attack(Targetable attackTarget)
 	{
-		MainWeapon.Attack(this,attackTarget);
+		_ = MainWeapon.Attack(this,attackTarget);
 	}
 
 	protected virtual Targetable FindTarget()
 	{
-		return _findTarget.GetOverlappingBodies().Count == 0
-			? null
-			: _findTarget.GetOverlappingBodies()
-				.Where(body =>
-					body is Targetable target && target.Team != Team &&
-					target.GlobalPosition.DistanceTo(_startPosition) <= MaxFindTargetDistance * 2)
-				.OrderBy(body => body.GlobalPosition.DistanceTo(GlobalPosition)).Select(body1 => body1 as Targetable)
-				.FirstOrDefault();
+		return _findTarget.GetOverlappingBodies()
+			.Where(body =>
+				body is Targetable target && target.Team != Team &&
+				target.GlobalPosition.DistanceTo(_startPosition) <= MaxFindTargetDistance * 2)
+			.OrderBy(body => body.GlobalPosition.DistanceTo(GlobalPosition)).Select(body1 => body1 as Targetable)
+			.FirstOrDefault();
+	}
+	
+	public override void TakeDamage(DamageDate data)
+	{
+		var damageData = BaseTakeDamage(data);
+		if (Health <= 0) Die();
+		alert = true;
+		target = FindTarget();
+		var damageAnimation = (Label)_damage.Duplicate();
+		damageAnimation.Text = damageData.Item1.ToString();
+		damageAnimation.GlobalPosition = GlobalPosition;
+		var startColor = damageData.Item2? new Color(0, 1, 1) : new Color(1, 1, 1);
+		GetGame(this).GetNode<Node2D>("GameObjects").AddChild(damageAnimation);
+		damageAnimation.Show();
+		var tween = GetTree().CreateTween();
+		tween.TweenProperty(damageAnimation, new NodePath(Control.PropertyName.GlobalPosition), GlobalPosition, 0);
+		tween.Chain().TweenProperty(damageAnimation, new NodePath(CanvasItem.PropertyName.Modulate), startColor, 0);
+		tween.TweenProperty(damageAnimation, new NodePath(Control.PropertyName.GlobalPosition),
+			GlobalPosition + Vector2.Up * 32, 1);
+		tween.Chain().TweenProperty(damageAnimation, new NodePath(CanvasItem.PropertyName.Modulate),
+			new Color(startColor.R, startColor.G, startColor.B, 0), 1);
+		tween.TweenCallback(Callable.From(damageAnimation.QueueFree));
+
+	}
+
+	protected void Die()
+	{
+		GetGame(this).Coins += Coin;
+		QueueFree();
 	}
 }

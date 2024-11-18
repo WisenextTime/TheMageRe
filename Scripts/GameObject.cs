@@ -11,4 +11,8 @@ public abstract partial class GameObject : CharacterBody2D
 	[Export] public bool CollisionAir = false;
 
 	protected void GameObjectReady() { }
+	
+	public virtual void OnSelect() { }
+	public virtual void OnUnselect() { }
+	public virtual void OnUse() { }
 }

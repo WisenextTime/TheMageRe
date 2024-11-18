@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnen2yu00ug58"]
+
+[ext_resource type="Script" path="res://Scripts/ItemObject.cs" id="1_mpmpw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ow8"]
+size = Vector2(16, 16)
+
+[node name="Item" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_mpmpw")
+Triggerable = true
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o5ow8")
+
+[node name="Image" type="Sprite2D" parent="."]

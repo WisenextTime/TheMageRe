@@ -3,9 +3,4 @@
     <TargetFramework>net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Scenes\" />
-    <Folder Include="Scripts\Bullets\" />
-    <Folder Include="Scripts\Items\" />
-  </ItemGroup>
 </Project>

@@ -133,10 +133,10 @@ public partial class Enemy : Targetable
 		damageAnimation.Show();
 		var tween = GetTree().CreateTween();
 		tween.TweenProperty(damageAnimation, new NodePath(Control.PropertyName.GlobalPosition), GlobalPosition, 0);
-		tween.Chain().TweenProperty(damageAnimation, new NodePath(CanvasItem.PropertyName.Modulate), startColor, 0);
+		tween.Parallel().TweenProperty(damageAnimation, new NodePath(CanvasItem.PropertyName.Modulate), startColor, 0);
 		tween.TweenProperty(damageAnimation, new NodePath(Control.PropertyName.GlobalPosition),
 			GlobalPosition + Vector2.Up * 32, 1);
-		tween.Chain().TweenProperty(damageAnimation, new NodePath(CanvasItem.PropertyName.Modulate),
+		tween.Parallel().TweenProperty(damageAnimation, new NodePath(CanvasItem.PropertyName.Modulate),
 			new Color(startColor.R, startColor.G, startColor.B, 0), 1);
 		tween.TweenCallback(Callable.From(damageAnimation.QueueFree));
 

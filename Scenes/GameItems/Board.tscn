@@ -15,21 +15,30 @@ texture = ExtResource("2_8os00")
 hframes = 4
 vframes = 4
 
-[node name="Text" type="Label" parent="Info" index="3"]
+[node name="Text" type="RichTextLabel" parent="Info" index="3"]
 visible = false
 z_index = 10
-anchors_preset = -1
+clip_contents = false
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 35
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
 text = "None"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+threaded = true
 
-[node name="Back" type="NinePatchRect" parent="Info/Text" index="0"]
+[node name="Back" type="NinePatchRect" parent="Info/Text" index="1"]
 z_index = -1
 layout_mode = 1
 anchors_preset = -1
@@ -42,7 +51,7 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_2w7j4")
-patch_margin_left = 5
-patch_margin_top = 5
-patch_margin_right = 5
-patch_margin_bottom = 5
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6

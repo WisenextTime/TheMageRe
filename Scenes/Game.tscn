@@ -65,6 +65,7 @@ position = Vector2(30, 27)
 
 [node name="Item" parent="GameObjects/DebugChunk01" instance=ExtResource("6_qmfyh")]
 position = Vector2(-239, -95)
-Text = "AWA!d"
+Text = "AWA!
+XD"
 
 [node name="UI" parent="." instance=ExtResource("6_lcuct")]

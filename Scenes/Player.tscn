@@ -113,4 +113,11 @@ autoplay = "Idle"
 [node name="ItemFinder" type="RayCast2D" parent="."]
 target_position = Vector2(25, 0)
 collision_mask = 128
+hit_from_inside = true
 collide_with_areas = true
+
+[node name="Debug" type="ColorRect" parent="ItemFinder"]
+visible = false
+offset_top = -1.0
+offset_right = 25.0
+offset_bottom = 1.0

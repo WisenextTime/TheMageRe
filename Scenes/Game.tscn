@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://pohe25gveqcp"]
+[gd_scene load_steps=8 format=4 uid="uid://pohe25gveqcp"]
 
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_8mgto"]
 [ext_resource type="TileSet" uid="uid://nwqbafjrjraw" path="res://Assets/Misc/Tile.tres" id="1_dn2xc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d4h7dj1sfbgtt" path="res://Scenes/Player.tscn" id="3_r7d4j"]
 [ext_resource type="PackedScene" uid="uid://cyg1okuymo7t8" path="res://Scenes/Enemies/ZeroSlime.tscn" id="5_aj7r5"]
 [ext_resource type="PackedScene" uid="uid://x11b05xkiwkp" path="res://Scenes/Ui.tscn" id="6_lcuct"]
+[ext_resource type="PackedScene" uid="uid://b0v3avhv1s7ep" path="res://Scenes/GameItems/Board.tscn" id="6_qmfyh"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -38,22 +39,32 @@ y_sort_enabled = true
 [node name="Player" parent="GameObjects" instance=ExtResource("3_r7d4j")]
 position = Vector2(680, 440)
 
-[node name="Enemy" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1071, 499)
+[node name="DebugChunk01" type="VisibleOnScreenEnabler2D" parent="GameObjects"]
+y_sort_enabled = true
+position = Vector2(1047, 519)
+rect = Rect2(-512, -512, 1024, 1024)
+enable_node_path = NodePath(".")
 
-[node name="Enemy2" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1162, 499)
+[node name="Enemy" parent="GameObjects/DebugChunk01" instance=ExtResource("5_aj7r5")]
+position = Vector2(29, -18)
 
-[node name="Enemy3" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1205, 501)
+[node name="Enemy2" parent="GameObjects/DebugChunk01" instance=ExtResource("5_aj7r5")]
+position = Vector2(120, -18)
 
-[node name="Enemy4" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1158, 535)
+[node name="Enemy3" parent="GameObjects/DebugChunk01" instance=ExtResource("5_aj7r5")]
+position = Vector2(163, -16)
 
-[node name="Enemy5" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1201, 538)
+[node name="Enemy4" parent="GameObjects/DebugChunk01" instance=ExtResource("5_aj7r5")]
+position = Vector2(116, 18)
 
-[node name="Enemy6" parent="GameObjects" instance=ExtResource("5_aj7r5")]
-position = Vector2(1072, 544)
+[node name="Enemy5" parent="GameObjects/DebugChunk01" instance=ExtResource("5_aj7r5")]
+position = Vector2(159, 21)
+
+[node name="Enemy6" parent="GameObjects/DebugChunk01" instance=ExtResource("5_aj7r5")]
+position = Vector2(30, 27)
+
+[node name="Item" parent="GameObjects/DebugChunk01" instance=ExtResource("6_qmfyh")]
+position = Vector2(-239, -95)
+Text = "AWA!d"
 
 [node name="UI" parent="." instance=ExtResource("6_lcuct")]

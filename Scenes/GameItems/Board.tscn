@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0v3avhv1s7ep"]
+
+[ext_resource type="PackedScene" uid="uid://bnen2yu00ug58" path="res://Scenes/Item.tscn" id="1_cs4wu"]
+[ext_resource type="Texture2D" uid="uid://byial7oru5r7v" path="res://Assets/Textures/Tiles/Item02.png" id="2_8os00"]
+[ext_resource type="Script" path="res://Scripts/GameItems/Board.cs" id="2_crk56"]
+[ext_resource type="Texture2D" uid="uid://5sbbm4c0w7p" path="res://Assets/Textures/UI/BoardBack.png" id="4_2w7j4"]
+
+[node name="Item" instance=ExtResource("1_cs4wu")]
+script = ExtResource("2_crk56")
+Theme = 0
+Text = ""
+
+[node name="Image" parent="." index="1"]
+texture = ExtResource("2_8os00")
+hframes = 4
+vframes = 4
+
+[node name="Text" type="Label" parent="Info" index="3"]
+visible = false
+z_index = 10
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "None"
+
+[node name="Back" type="NinePatchRect" parent="Info/Text" index="0"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_2w7j4")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5

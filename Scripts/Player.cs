@@ -29,13 +29,14 @@ public partial class Player : Targetable
 	public override void _PhysicsProcess(double delta)
 	{
 		Move();
+		_itemFinder.LookAt(ToGlobal(MoveDirection));
 		if (Input.IsActionPressed("Attack") && !Input.IsActionPressed("MagicLeft") &&
 		    !Input.IsActionPressed("MagicRight"))
 			_ = MainWeapon.Attack(this);
 		if (_itemFinder.GetCollider() is GameObject newItem)
 		{
 			if (newItem == NowItem) return;
-			NowItem.OnUnselect();
+			NowItem?.OnUnselect();
 			NowItem = newItem;
 			newItem.OnSelect();
 		}
@@ -52,7 +53,6 @@ public partial class Player : Targetable
 		var moveDir = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown").Normalized();
 		if (moveDir != Vector2.Zero)
 		{
-			_itemFinder.LookAt(moveDir);
 			MoveDirection = moveDir;
 			_image.FlipH = moveDir.X switch
 			{

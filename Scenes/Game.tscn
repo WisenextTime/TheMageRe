@@ -65,6 +65,7 @@ position = Vector2(30, 27)
 
 [node name="Item" parent="GameObjects/DebugChunk01" instance=ExtResource("6_qmfyh")]
 position = Vector2(-239, -95)
+Theme = 1
 Text = "AWA!
 XD"
 

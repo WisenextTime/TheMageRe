@@ -76,8 +76,7 @@ public partial class Bullet : Area2D
 			{
 				if (body is not Targetable target)continue;
 				if(target.Team == Attacker.Team)continue;
-				Explode();
-				Damage(target, mustCrit: crit);
+				Damage(target, Attacker.GlobalPosition.DistanceTo(target.GlobalPosition) / RangeRadius, crit);
 			}
 		}
 		if (!MultiTarget) QueueFree();

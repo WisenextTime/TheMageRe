@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+
 namespace TheMage.Scripts;
 
 public partial class Enemy : Targetable
@@ -9,10 +11,12 @@ public partial class Enemy : Targetable
 	protected AnimationPlayer _animation;
 	protected Sprite2D _image;
 	protected TextureProgressBar _hpBar;
+	protected Timer _specialTimer;
 	
 	protected Label _damage;
 	
 	protected Vector2 _startPosition;
+	protected bool _readyToSpecialPower;
 	
 	public bool alert;
 	[Export] public float MaxFindTargetDistance = 320f;
@@ -20,12 +24,15 @@ public partial class Enemy : Targetable
 	[Export] public float AttackRange = 10f;
 	[Export] public float Speed = 10f;
 	[Export] public int Coin = 1;
+	[Export] public int SpecialPower = 10;
 	
 	public Targetable target;
+	protected bool _canMove = true;
 
 	public void EnemyReady()
 	{
 		TargetableReady();
+		if (Team == 0) Team = 1;
 		_agent = GetNode<NavigationAgent2D>("Agent");
 		_findTarget = GetNode<Area2D>("FindTarget");
 		_startPosition = GlobalPosition;
@@ -33,6 +40,9 @@ public partial class Enemy : Targetable
 		_image = GetNode<Sprite2D>("Image");
 		_hpBar = GetNode<TextureProgressBar>("HpBar");
 		_damage = GetNode<Label>("Damage");
+		_specialTimer = GetNode<Timer>("SpecialTimer");
+		_specialTimer.WaitTime = SpecialPower;
+		_specialTimer.Start();
 		Attributes.MovSpd = Speed;
 		Attributes.MaxHp = (float)(_hpBar.Value = _hpBar.MaxValue = Health = MaxHealth);
 	}
@@ -46,6 +56,24 @@ public partial class Enemy : Targetable
 	{
 		BaseMovement();
 		_hpBar.Value = Health;
+	}
+
+	public virtual void SpecialReady()
+	{
+		_readyToSpecialPower = true;
+	}
+
+	protected virtual async Task Special()
+	{
+		if(!_readyToSpecialPower) return;
+		_readyToSpecialPower = false;
+		await UseSpecialPower();
+		_specialTimer.Start();
+	}
+
+	protected virtual Task UseSpecialPower()
+	{
+		return Task.CompletedTask;
 	}
 
 	protected void BaseMovement()
@@ -76,7 +104,12 @@ public partial class Enemy : Targetable
 		}
 		else
 		{
-			if (target.GlobalPosition.DistanceTo(GlobalPosition) < AttackRange)
+			if (_readyToSpecialPower)
+			{
+				_ = Special();
+			}
+			
+			if (target!.GlobalPosition.DistanceTo(GlobalPosition) < AttackRange)
 			{
 				_animation.Play(_animation.HasAnimation("Custom/Attack") ? "Custom/Attack" : "Attack");
 				Velocity = Vector2.Zero;
@@ -87,8 +120,10 @@ public partial class Enemy : Targetable
 				_animation.Play(_animation.HasAnimation("Custom/Walk") ? "Custom/Walk" : "Walk");
 				Move(target.GlobalPosition);
 			}
+			
 		}
-		MoveAndSlide();
+
+		if (_canMove) MoveAndSlide();
 	}
 
 	protected virtual void Move(Vector2 position)

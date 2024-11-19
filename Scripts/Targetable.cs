@@ -36,11 +36,11 @@ public abstract partial class Targetable : GameObject
         			let source = Elements.Find(x => x.Element == element)
         			let defense = source.Def * (1 + source.DefMul)
         			let attack = data.Elements[element] 
-        			select attack * defense / (defense + 600)
+        			select attack * (1 - defense / (defense + 600))
         			into finalDamage 
-        			select (int)finalDamage).Sum();
-        		Health -= damage;
-		        return (damage,data.Crit);
+        			select (int)finalDamage).Sum(); 
+		Health -= damage; 
+		return (damage,data.Crit);
 	}
 
 	public virtual void TakeDamage(DamageDate data)

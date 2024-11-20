@@ -19,15 +19,7 @@ DangerInfo = ""
 [node name="Info" parent="." index="2"]
 position = Vector2(0, -32)
 
-[node name="SafeArea" type="Area2D" parent="." index="3"]
-visible = false
-collision_layer = 0
-collision_mask = 16
-
-[node name="Shape" type="CollisionShape2D" parent="SafeArea" index="0"]
-shape = SubResource("CircleShape2D_egmwb")
-
-[node name="Danger" type="RichTextLabel" parent="." index="4"]
+[node name="Danger" type="RichTextLabel" parent="Info" index="3"]
 visible = false
 z_index = 10
 clip_contents = false
@@ -36,8 +28,7 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -32.0
-offset_bottom = -32.0
+offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -52,7 +43,7 @@ scroll_active = false
 autowrap_mode = 0
 threaded = true
 
-[node name="Back" type="NinePatchRect" parent="Danger" index="1"]
+[node name="Back" type="NinePatchRect" parent="Info/Danger" index="1"]
 z_index = -1
 layout_mode = 1
 anchors_preset = -1
@@ -69,3 +60,11 @@ patch_margin_left = 6
 patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
+
+[node name="SafeArea" type="Area2D" parent="." index="3"]
+visible = false
+collision_layer = 0
+collision_mask = 16
+
+[node name="Shape" type="CollisionShape2D" parent="SafeArea" index="0"]
+shape = SubResource("CircleShape2D_egmwb")

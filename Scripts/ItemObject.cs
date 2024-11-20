@@ -6,6 +6,9 @@ public partial class ItemObject : GameObject
 	[Export] public bool Usable;
 
 	protected Node2D _info;
+	protected Sprite2D infoKey => GetNode<Sprite2D>("Info/Key");
+	protected Sprite2D infoJoy => GetNode<Sprite2D>("Info/Joy");
+	protected Sprite2D infoTouch => GetNode<Sprite2D>("Info/Touch");
 
 	public override void _Ready()
 	{
@@ -16,15 +19,12 @@ public partial class ItemObject : GameObject
 	protected void BaseItemSelect()
 	{
 		if (!Triggerable) return;
-		_info.Show();
 		SetIcon();
 	}
 
 	private void SetIcon()
 	{
-		var infoKey = GetNode<Sprite2D>("Info/Key");
-		var infoJoy = GetNode<Sprite2D>("Info/Joy");
-		var infoTouch = GetNode<Sprite2D>("Info/Touch");
+		
 		switch (GetGlobal().GetInputDevice())
 		{
 			case InputDevice.KeyboardAndMouse:
@@ -47,7 +47,9 @@ public partial class ItemObject : GameObject
 
 	protected void BaseUnSelect()
 	{
-		_info.Hide();
+		infoKey.Hide();
+		infoJoy.Hide();
+		infoTouch.Hide();
 	}
 
 	protected void BaseReady()

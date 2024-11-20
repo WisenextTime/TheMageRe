@@ -26,7 +26,7 @@ public partial class Npc : ItemObject
 		GameObjectReady();
 		BaseReady();
 		_safeArea = GetNode<Area2D>("SafeArea");
-		_danger = GetNode<RichTextLabel>("Danger");
+		_danger = GetNode<RichTextLabel>("Info/Danger");
 		_danger.ParseBbcode(DangerInfo);
 	}
 

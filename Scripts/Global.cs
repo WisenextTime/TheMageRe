@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using TheMage.Scripts.ItemServices;
 
 namespace TheMage.Scripts;
 
-public class Global
+public partial class Global
 {
 	public Dictionary<string,Item> Items = [];
 	public Dictionary<string,Weapon> Weapons = [];

@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://x11b05xkiwkp"]
+[gd_scene load_steps=7 format=3 uid="uid://x11b05xkiwkp"]
 
 [ext_resource type="Script" path="res://Scripts/Ui.cs" id="1_byauf"]
 [ext_resource type="Texture2D" uid="uid://dijk74r1yk1yl" path="res://Assets/Textures/UI/TouchJoyBack.png" id="2_jkjfe"]
 [ext_resource type="Script" path="res://Scripts/GodotScripts/TouchJoy.gd" id="3_0rf2k"]
 [ext_resource type="Texture2D" uid="uid://dw2klan4m4ltu" path="res://Assets/Textures/UI/TouchJoyCenter.png" id="3_e2m5x"]
+[ext_resource type="Texture2D" uid="uid://b3ljvua5b88he" path="res://Assets/Textures/UI/Dialogue01.png" id="5_t1ob5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adn13"]
 size = Vector2(300, 300)
 
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_byauf")
 
 [node name="TouchDeviceControl" type="Control" parent="."]
@@ -19,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="JoyBack" type="TextureRect" parent="TouchDeviceControl"]
 modulate = Color(1, 1, 1, 0.505882)
@@ -56,6 +59,53 @@ offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_e2m5x")
+
+[node name="Dialogue" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Back" type="NinePatchRect" parent="Dialogue"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -270.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("5_t1ob5")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="Content" type="RichTextLabel" parent="Dialogue/Back"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/bold_italics_font_size = 50
+theme_override_font_sizes/italics_font_size = 50
+theme_override_font_sizes/mono_font_size = 45
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
+bbcode_enabled = true
+scroll_active = false
 
 [connection signal="pressed" from="TouchDeviceControl/JoyBack/Button" to="TouchDeviceControl/JoyBack" method="_on_button_pressed"]
 [connection signal="released" from="TouchDeviceControl/JoyBack/Button" to="TouchDeviceControl/JoyBack" method="_on_button_released"]

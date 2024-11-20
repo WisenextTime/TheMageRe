@@ -19,11 +19,14 @@ vframes = 4
 visible = false
 z_index = 10
 clip_contents = false
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -59.0
+offset_right = 52.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -36,7 +39,6 @@ text = "None"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
-threaded = true
 
 [node name="Back" type="NinePatchRect" parent="Info/Text" index="1"]
 z_index = -1

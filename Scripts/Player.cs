@@ -17,6 +17,8 @@ public partial class Player : Targetable
 
 	public GameObject NowItem;
 	
+	public bool LockInput = false;
+	
 	public override void _Ready()
 	{
 		GameObjectReady();
@@ -28,11 +30,17 @@ public partial class Player : Targetable
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (LockInput) return;
 		Move();
 		_itemFinder.LookAt(ToGlobal(MoveDirection));
 		if (Input.IsActionPressed("Attack") && !Input.IsActionPressed("MagicLeft") &&
 		    !Input.IsActionPressed("MagicRight"))
 			_ = MainWeapon.Attack(this);
+		if (Input.IsActionPressed("Action") && !Input.IsActionPressed("MagicLeft") &&
+		    !Input.IsActionPressed("MagicRight"))
+		{
+			NowItem?.OnUse();
+		}
 		if (_itemFinder.GetCollider() is GameObject newItem)
 		{
 			if (newItem == NowItem) return;

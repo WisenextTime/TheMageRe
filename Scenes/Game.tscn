@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://pohe25gveqcp"]
+[gd_scene load_steps=9 format=4 uid="uid://pohe25gveqcp"]
 
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_8mgto"]
 [ext_resource type="TileSet" uid="uid://nwqbafjrjraw" path="res://Assets/Misc/Tile.tres" id="1_dn2xc"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cyg1okuymo7t8" path="res://Scenes/Enemies/ZeroSlime.tscn" id="5_aj7r5"]
 [ext_resource type="PackedScene" uid="uid://x11b05xkiwkp" path="res://Scenes/Ui.tscn" id="6_lcuct"]
 [ext_resource type="PackedScene" uid="uid://b0v3avhv1s7ep" path="res://Scenes/GameItems/Board.tscn" id="6_qmfyh"]
+[ext_resource type="PackedScene" uid="uid://1dl0mys73btx" path="res://Scenes/NPCs/test.tscn" id="7_xa7hs"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -69,4 +70,7 @@ Theme = 1
 Text = "AWA!
 XD"
 
-[node name="UI" parent="." instance=ExtResource("6_lcuct")]
+[node name="TEST" parent="GameObjects/DebugChunk01" instance=ExtResource("7_xa7hs")]
+position = Vector2(-271, -143)
+
+[node name="Ui" parent="." instance=ExtResource("6_lcuct")]

@@ -26,7 +26,7 @@ public partial class Npc : ItemObject
 		GameObjectReady();
 		BaseReady();
 		_safeArea = GetNode<Area2D>("SafeArea");
-		_danger = GetNode<RichTextLabel>("Info/Danger");
+		_danger = GetNode<RichTextLabel>("Danger");
 		_danger.ParseBbcode(DangerInfo);
 	}
 
@@ -59,7 +59,8 @@ public partial class Npc : ItemObject
 		var _dangerTween = GetTree().CreateTween();
 		_dangerTween.TweenCallback(Callable.From(_danger.Show));
 		_dangerTween.TweenProperty(_danger, new NodePath(CanvasItem.PropertyName.Modulate),new Color(1,1,1), 0);
-		_dangerTween.TweenProperty(_danger, new NodePath(CanvasItem.PropertyName.Modulate),new Color(1,1,1,0), 1);
+		_dangerTween.TweenProperty(_danger, new NodePath(CanvasItem.PropertyName.Modulate),new Color(1,1,1), 1);
+		_dangerTween.TweenProperty(_danger, new NodePath(CanvasItem.PropertyName.Modulate),new Color(1,1,1,0), 2);
 		_dangerTween.TweenCallback(Callable.From(_danger.Hide));
 	}
 
